@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.QuestionMapper">
+    <resultMap id="result" type="persistence.dto.QuestionDTO">
+        <result property="questionID" column="question_id"/>
+        <result property="categoryID" column="category_id"/>
+        <result property="questionText" column="question_text"/>
+        <result property="answer" column="answer"/>
+        <result property="commentary" column="commentary"/>
+    </resultMap>
+    <insert id = "insertQuestion">
+        INSERT INTO QUESTION(category_id, question_text, answer, commentary) VALUES (#{categoryID}, #{questionText}, #{answer}, #{commentary})
+    </insert>
+    <select id="countRows" resultType="int">
+        SELECT COUNT(*) FROM QUESTION
+    </select>
+    <select id="getQuestion" resultMap="result">
+        SELECT * FROM question
+        <if test ="categoryID!=null">
+            WHERE category_id = #{categoryID}
+        </if>
+    </select>
+    <select id="getAllQuestion" resultMap="result">
+        SELECT * FROM question;
+    </select>
+</mapper>

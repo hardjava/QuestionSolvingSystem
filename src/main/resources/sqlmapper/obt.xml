@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ObtMapper">
+    <resultMap id="result" type="persistence.dto.ObtDTO">
+        <result property="questionID" column="question_id"/>
+        <result property="optNum" column="opt_num"/>
+        <result property="optText" column="opt_text"/>
+    </resultMap>
+    <insert id = "insertObt">
+        INSERT INTO OPT(question_id, opt_num, opt_text) VALUES (#{questionID}, #{optNum}, #{optText})
+    </insert>
+    <select id="printObt" resultMap="result">
+        SELECT question_id, opt_num, opt_text FROM opt
+        <if test ="questionID!=null">
+            where question_id = #{questionID}
+        </if>
+    </select>
+</mapper>

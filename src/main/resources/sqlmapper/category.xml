@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.CategoryMapper">
+    <resultMap id="result" type="persistence.dto.CategoryDTO">
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="num" column="question_count"/>
+    </resultMap>
+    <select id = "selectAll" resultMap ="result">
+        SELECT c.category_id, c.category_name, COUNT(q.category_id) AS question_count FROM os.category AS c LEFT JOIN os.question AS q ON c.category_id = q.category_id GROUP BY c.category_id, c.category_name
+    </select>
+</mapper>
